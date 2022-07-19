@@ -24,14 +24,6 @@ pub fn main_js() -> Result<(), JsValue> {
 
     // Your code goes here!
     console::log_1(&JsValue::from_str("Hello world! (from wasm)"));
-    let window = web_sys::window().expect("no global `window` exists");
-    let document = window.document().expect("should have a document on window");
-    let body = document.body().expect("document should have a body");
-
-    let p: web_sys::Node = document.create_element("p")?.into();
-    p.set_text_content(Some("Hello from Rust, WebAssembly, and Webpack! Wuhoo!"));
-    console::log_1(&JsValue::from_str(&name()));
-    let _ = body.append_child(&p);
 
     Ok(())
 }
@@ -39,5 +31,6 @@ pub fn main_js() -> Result<(), JsValue> {
 // Test code in wasm.
 #[wasm_bindgen]
 pub fn add(a: i32, b: i32) -> i32 {
+    console::log_1(&JsValue::from_str("Wasm method called from react!"));
     a + b
 }
